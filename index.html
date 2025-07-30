@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>‎‧₊˚✧ hkdv Item Value Generator ✧˚₊‧</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif; 
+      background: #F8E8ED; 
+      color: #FB6F92;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+    
+    hr {
+      border: none;
+      border-top: 2px dotted #FF8FAB;  
+      margin: 20px 0;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #FB6F92;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    select, button {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      width: 100%;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      background-color: #FFFFFF;
+      border: 2px solid #FFB3C6;
+      color: #ff8fab;
+    }
+
+    select:focus, button:focus {
+      outline: none;
+      border-color: #fb6f92;
+    }
+
+    select option {
+      background-color: #FFFFFF;
+      color: #ff8fab;
+    }
+
+    button {
+      background-color: #ff8fab;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #fb6f92;
+    }
+
+    .description {
+      font-size: 0.85rem;
+      color: #FF8FAB;
+      margin-top: 4px;
+    }
+
+    .result {
+      display: none;
+      background: #FFFFFF;
+      border: 1px solid #f77ebf;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 8px;
+    }
+
+    .result strong {
+      color: #fb6f92;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>‎‧₊˚✧ hkdv Item Value Generator ✧˚₊‧</h1>
+
+  <div id="quizSection">
+    <div class="question">
+      <label for="q1">Question 1</label>
+      <select id="q1">
+        <option value="">-- Choose an option --</option>
+        <option value="No">No</option>
+        <option value="Exchange Bonus">Exchange Bonus</option>
+        <option value="Gift Bonus">Gift Bonus</option>
+        <option value="Quest Bonus">Quest Bonus</option>
+        <option value="Happy Box Bonus">Happy Box Bonus</option>
+        <option value="Task Promo / Quest / Sign-up Gift">Task Promo / Quest / Sign-up Gift</option>
+        <option value="Double the Chance Bonus">Double the Chance Bonus</option>
+        <option value="Secret Box Bonus">Secret Box Bonus</option>
+        <option value="Repair Shop Bonus">Repair Shop Bonus</option>
+        <option value="Real Money Direct Purchase Bonus">Real Money Direct Purchase Bonus</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="q2">Question 2</label>
+      <select id="q2">
+        <option value="">-- Choose an option --</option>
+        <option value="SSR">SSR</option>
+        <option value="RR">RR</option>
+        <option value="CC">CC</option>
+        <option value="SR">SR</option>
+        <option value="R">R</option>
+        <option value="C">C</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="q3">Question 3</label>
+      <select id="q3">
+        <option value="">-- Choose an option --</option>
+        <option value="Answer 1">24hr Happy Bag</option>
+        <option value="Answer 2">24hr Pop-Up Sugarbunnies Cart</option>
+        <option value="Answer 3">24hr Pop-Up Sugarbunnies Cart (Sweet Collection)</option>
+        <option value="Answer 4">24hr Sweet Collection</option>
+        <option value="Answer 5">48hr / 72 hr Happy Bag</option>
+        <option value="Answer 6">48hr / 72 hr Sweet Collection</option>
+        <option value="Answer 7">48hr / 72hr Pop-Up Sugarbunnies Cart</option>
+        <option value="Answer 8">48hr / 72hr Pop-Up Sugarbunnies Cart (Sweet Collection)</option>
+        <option value="Answer 9">4day/5day/6day/7day+ Happy Bag</option>
+        <option value="Answer 10">Petite Collection</option>
+        <option value="Answer 11">Sweet Collection</option>
+        <option value="Answer 12">Smile Festival</option>
+        <option value="Answer 13">Custom Happy Bag</option>
+        <option value="Answer 14">Sakuranboya's Shop</option>
+        <option value="Answer 15">Buyer Shop</option>
+        <option value="Answer 16">Lucky Bag</option>
+        <option value="Answer 17">Normal Event (Cake, Juice, etc)</option>
+        <option value="Answer 18">Growth/Balloon Event</option>
+        <option value="Answer 19">Dice Game Event</option>
+        <option value="Answer 20">Tuxedosam's Recycle Shop</option>
+        <option value="Answer 21">Dress Code Promo / Sanrio Birthday / Attendance Gift</option>
+        <option value="Answer 22">In-Game Purchase, App Webstore Purchase</option>
+      </select>
+    </div>
+
+    <button onclick="generateResult()">Generate Answer</button>
+  </div>
+
+  <div id="resultBox" class="result">
+    <h2>Your Result:</h2>
+    <div id="resultText"></div>
+    <hr>
+    <p>This generated response is fair "on paper", but it can absolutely vary based off the difficulty of obtaining the item.<br>Remember that value is subjective, players reserve the right to change the value based off popularity, scarcity of dupes in the server, personal difficulties, etc.</p>
+    <hr>
+    <button onclick="resetQuiz()">Start Over</button>
+  </div>
+
+  <script>
+    const powerMap = {
+      "No": "green",
+      "Exchange Bonus": "blue",
+      "Gift Bonus": "blue",
+      "Quest Bonus": "blue",
+      "Happy Box Bonus": "blue",
+      "Task Promo / Quest / Sign-up Gift": "blue",
+      "Double the Chance Bonus": "blue",
+      "Secret Box Bonus": "blue",
+      "Repair Shop Bonus": "blue",
+      "Real Money Direct Purchase Bonus": "red"
+    };
+
+    const cancelMap = {
+      green: {
+        q2: ["SSR", "RR", "CC"],
+        q3: ["Answer 22"]
+      },
+      blue: {
+        q2: ["SR", "R", "C"],
+        q3: ["Answer 2", "Answer 3", "Answer 7", "Answer 8", "Answer 12", "Answer 14", "Answer 15", "Answer 17", "Answer 18", "Answer 20", "Answer 22"]
+      },
+      red: {
+        q2: ["SR", "R", "C"],
+        q3: ["Answer 1", "Answer 2", "Answer 3", "Answer 4", "Answer 5", "Answer 6", "Answer 7", "Answer 8", "Answer 9", "Answer 10", "Answer 11", "Answer 12", "Answer 13", "Answer 14", "Answer 16", "Answer 17", "Answer 18", "Answer 19", "Answer 20", "Answer 21"]
+      }
+    };
+
+    const chargeValues = {
+      'SSR': 16,
+      'RR': 8,
+      'CC': 4,
+      'SR': 4,
+      'R': 2,
+      'C': 1
+    };
+
+    const boostMap = {
+      "Answer 1": 2,
+      "Answer 2": 2,
+      "Answer 3": 3,
+      "Answer 4": 4,
+      "Answer 5": 2,
+      "Answer 6": 3,
+      "Answer 7": 2,
+      "Answer 8": 3,
+      "Answer 9": 1,
+      "Answer 10": 1,
+      "Answer 11": 2,
+      "Answer 12": 2,
+      "Answer 13": 2,
+      "Answer 14": 2,
+      "Answer 15": "blue-incantation",
+      "Answer 16": 2,
+      "Answer 17": 1,
+      "Answer 18": 2,
+      "Answer 19": 2,
+      "Answer 20": 1,
+      "Answer 21": 1,
+      "Answer 22": "red-incantation"
+    };
+
+    const characterDescriptions = {
+  "No": "Your item is not a bonus.",
+  "Exchange Bonus": "Your Bonus item is considered within the community as more difficult to obtain, because you were required to 'sacrifice' either: specific dupes / specific number of dupes / specific rarity of dupes to craft the desired bonus item. Take this in mind when trading.",
+  "Gift Bonus": "Your Bonus item was obtained by purchasing (single pulls and Gacha Tickets count) in its linked bag (normally you'll see the name of the bag specified in the banner). They're usually, not always available during the entire time the bag is present in the Shop. Take this in mind when trading.",
+  "Quest Bonus": "Your Bonus item was obtained after 'spinning x7' a number of times in its linked bag (normally you'll see the name of the bag specified in the banner), triggering the rewards. They can either be available during the entire time the bag is present in the Shop or have a limited time. Take this in mind when trading.",
+  "Happy Box Bonus": "Your Bonus item could be obtained 'after spinning x7' through multiple Happy Bags! Take this in mind when trading.",
+  "Task Promo / Quest / Sign-up Gift": "Your item was obtained after hosting/joining a party (sometimes by wearing the required outfit). Rewards of this kind can often be valued less than normal happy bags (x1). Some users value them like common Plushies! Take this in mind when trading.",
+  "Double the Chance Bonus": "Your bonus item was sent to you during a time when your dupes were locked to fill a meter. Chances of obtaining a Bonus dupe were entirely randomic. CCs and RRs are usually less valuable than other bonuses because they’re abundant. Players tend to accumulate multiple copies while trying for SSRs (lower drop rate), which decreases their market value. Take this in mind when trading.",
+  "Secret Box Bonus": "Your bonus is a special bonus collected after transforming 3 identical dupes from another bag, different to the one where the bonus comes from. Take this in mind when trading.",
+  "Repair Shop Bonus": "Your bonus was sent to you after transforming your dupe with an effect of your choice. Repaired bonuses are likely more valuable than a 24-hour Sweet Collection bonus because getting a dupe for a repaired bonus is costly due to the paid-coin mechanics. Despite repaired bonuses being available for longer, the difficulty of obtaining duplicates increases their perceived worth. Take this in mind when trading.",
+  "Real Money Direct Purchase Bonus": "Item/s obtained by purchasing with real money directly."
+};
+
+
+    function generateResult() {
+      const answers = {
+        q1: document.getElementById("q1").value,
+        q2: document.getElementById("q2").value,
+        q3: document.getElementById("q3").value
+      };
+
+      if (!answers.q1 || !answers.q2 || !answers.q3) {
+        alert("Please answer all questions.");
+        return;
+      }
+
+      const power = powerMap[answers.q1];
+      const baseCharge = chargeValues[answers.q2];
+      const boost = boostMap[answers.q3];
+
+      let boostDisplay = (typeof boost === 'number')
+  ? 'x' + boost
+  : (answers.q3 === 'Answer 15' || answers.q3 === 'Answer 22')
+    ? 'no registered value'
+    : answers.q3;
+
+let resultMessage = `<p><strong>Item's Rarity:</strong> ${answers.q2}<br>` +
+                    `<strong>Item's bag value:</strong> ${boostDisplay}</p>`;
+
+
+
+      if (typeof boost === 'number') {
+  const finalCharge = baseCharge * boost;
+  let potionText = '';
+
+  // Direct SR-based categories
+  if (['SSR', 'RR', 'CC'].includes(answers.q2)) {
+    const srCount = Math.ceil(finalCharge / 4);
+    potionText = `${srCount} base SR`;
+  } else {
+const baseC = finalCharge;
+let parts = [`${baseC} base C`];
+
+if (baseC >= 2) {
+  const baseR = Math.floor(baseC / 2);
+  parts.push(`${baseR} base R`);
+}
+
+if (baseC >= 4) {
+  const baseSR = Math.floor(baseC / 4);
+  parts.push(`${baseSR} base SR`);
+}
+
+potionText = parts.join(', ');
+
+  }
+
+  resultMessage += `<p>This item requires <strong>${potionText}</strong> to make a fair exchange! (Take this answer as a value reference. "base" value is x1)</p>`;
+} else if (boost === 'blue-incantation' && (power === 'blue' || power === 'green')) {
+        resultMessage += `<p><em>Buyer Shop items could be obtained during a one-hour-period window for only Macaron Ranked players. Dupes from said release were later sold on Select Shop for all players regardless of rank. Simply because players select the value by themselves, values WILL vary from player to player. Consult the community for help!</em></p>`;
+      } else if (boost === 'red-incantation' && power === 'red') {
+        resultMessage += `<p><em>Your bonus item/dupe was obtained after purchasing one/two times with your real money. We cannot determine a base value for this item. We strictly encourage you to consult the Community for value assistance.</em></p>`;
+      } else {
+        resultMessage += `<p><em>No boost applied.</em></p>`;
+      }
+
+      if (characterDescriptions[answers.q1]) {
+  resultMessage += `<p><strong>Bonus type:</strong> ${answers.q1}<br><em>${characterDescriptions[answers.q1]}</em></p>`;
+}
+      document.getElementById("quizSection").classList.add("hidden");
+      document.getElementById("resultBox").style.display = "block";
+      document.getElementById("resultText").innerHTML = resultMessage;
+    }
+
+
+    function resetQuiz() {
+      ["q1", "q2", "q3"].forEach(id => {
+        document.getElementById(id).value = "";
+        [...document.getElementById(id).options].forEach(opt => opt.hidden = false);
+      });
+
+      document.getElementById("quizSection").classList.remove("hidden");
+      document.getElementById("resultBox").style.display = "none";
+    }
+
+    document.getElementById("q1").addEventListener("change", function () {
+      const selected = this.value;
+      const power = powerMap[selected];
+
+      ["q2", "q3"].forEach(q => {
+        const select = document.getElementById(q);
+        const toCancel = cancelMap[power]?.[q] || [];
+        [...select.options].forEach(opt => {
+          opt.hidden = toCancel.includes(opt.value);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
